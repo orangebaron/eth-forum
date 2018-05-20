@@ -9,14 +9,15 @@ $(document).ready(function(){
 			var elem = document.createElement('div');
 			$(elem).css('position','absolute');
 			if (posts[i-startFrom][3]) {
-				elem.innerHTML = '<div class = "imageContainer">' + '<br>' +posts[i-startFrom][5] + '<p style="display: block; padding-left: 33px; padding-right: 33px; width: 50%; left:25%; font-size:1em;">' + posts[i-startFrom][0] + '</p>' + posts[i-startFrom][6]+'</div>';
+				elem.innerHTML = '<div class = "imageContainer">' + '<br>' +posts[i-startFrom][5] + ' | ' + posts[i-startFrom][4].c[0]+ '<p style="display: block; padding-left: 33px; padding-right: 33px; width: 50%; left:25%; font-size:1em;">' + posts[i-startFrom][0] + '</p>' + posts[i-startFrom][6]+'</div>';
+
 				$(elem).addClass('circle');
 				$(elem).css('color', '#ffffff');
 				$(elem).css('overflow', 'hidden');
 				$(elem).css('-webkit-column-width', '75%');
 				$(elem).css('column-width', '75%');
 			} else {
-				elem.innerHTML = '<p style = "border:2px; border-style: solid; border-color: #ffffff;position:absolute;top:30%;">' + posts[i-startFrom][5] + '<br>' + posts[i-startFrom][6] + '<br>'+ posts[i-startFrom][0] + '</p>'
+				elem.innerHTML = '<p style = "border:2px; border-style: solid; border-color: #ffffff;position:absolute;top:30%;">' + posts[i-startFrom][5] + ' | ' + posts[i-startFrom][4].c[0]+ '<br>' + posts[i-startFrom][6] + '<br>'+ posts[i-startFrom][0] + '</p>';
 				
 				$(elem).css('color', '#ffffff'); 
 				$(elem).css('background-color','transparent');
@@ -65,12 +66,15 @@ $(document).ready(function(){
 		moveCenter($(this));
 
 		for (var i=numOfLefts;i>0;i--) {
-			$(".left"+String(i)).animate({left: String(3-i)+"0%"});
+			$(".left"+String(i)).animate({left: String(3-(i+2))+"0%"});
 			$(".left"+String(i)).removeClass("left"+String(i)).addClass("left"+String(i+1));
 		}
+		if (numOfLefts>0){
+			$(".left").off("click");
+			$(".left").animate({left: "20%"});
+			$(".left").removeClass("left").addClass("left1");
+		}
 		numOfLefts++;
-		$(".left"+String(i)).animate({left: "20%"});
-		$(".left").removeClass("left").addClass("left1");
 
 		$(".centered").removeClass("centered").addClass("left");
 		$(this).removeClass("surrounding").addClass("centered");
@@ -86,17 +90,17 @@ $(document).ready(function(){
 
 		$(this).removeClass("left").addClass("centered");
 
-		numOfLefts--;
 		if (numOfLefts > 1) {
 			$(".left1").animate({left: "30%"});
 			$(".left1").removeClass("left1").addClass("left");
 		}
 		if (numOfLefts > 2) {
 			for (var i=2;i<numOfLefts;i++) {
-				$(".left"+String(i)).animate({left: String(2-i)+"0%"});
+				$(".left"+String(i)).animate({left: String(3-(i-1))+"0%"});
 				$(".left"+String(i)).removeClass("left"+String(i)).addClass("left"+String(i-1));
 			}
 		}
+		numOfLefts--;
 		
 		
 
