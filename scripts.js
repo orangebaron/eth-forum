@@ -4,6 +4,7 @@ $(document).ready(function(){
 		for (var i=1;i<boxes+1;i++){
 			var box = document.createElement('div');
 			$(box).addClass('box');
+			$(box).attr('id', 'b' + i);
 			$(box).css('top',String(
 				50+30*Math.sin(6.28318530718*i/(boxes+1))
 			)+'%');
@@ -22,8 +23,18 @@ $(document).ready(function(){
 			margin: "-25px 0 0 -25px"
 		});
 	}
-	$("#center").click(function(){
-		moveLeft($(this));
-	});
+	function moveCenter(x){
+		x.animate({
+			top:"50%",
+			left:"50%",
+			width: "10px"
+		});
+	}
 	makeBox([['','a'],['','b'],['','c'],['','d'],['','e']]);
+	$(".box").click(function(){		
+		moveLeft($(".centered"));
+		moveCenter($(this));
+		$(this).attr('class', 'centered');
+		$(".box").remove();
+	});
 })
