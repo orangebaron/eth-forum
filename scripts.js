@@ -9,7 +9,7 @@ $(document).ready(function(){
 			var elem = document.createElement('div');
 			$(elem).css('position','absolute');
 			if (posts[i-startFrom][3]) {
-				elem.innerHTML = '<div class = "imageContainer">' + '<br>' +posts[i-startFrom][5] + ' | ' + posts[i-startFrom][4].c[0]+ '<p style="display: block; padding-left: 33px; padding-right: 33px; width: 50%; left:25%; font-size:1em;">' + posts[i-startFrom][0] + '</p>' + posts[i-startFrom][6]+'</div>';
+				elem.innerHTML = '<div class = "imageContainer">' + '<br>' +posts[i-startFrom][5] + ' | ' + (posts[i-startFrom][4].s*posts[i-startFrom][4].c[0])+ '<p style="display: block; padding-left: 33px; padding-right: 33px; width: 50%; left:25%; font-size:1em;">' + posts[i-startFrom][0] + '</p>' + posts[i-startFrom][6]+'</div>';
 
 				$(elem).addClass('circle');
 				$(elem).css('color', '#ffffff');
@@ -17,7 +17,7 @@ $(document).ready(function(){
 				$(elem).css('-webkit-column-width', '75%');
 				$(elem).css('column-width', '75%');
 			} else {
-				elem.innerHTML = '<p style = "border:2px; border-style: solid; border-color: #ffffff;position:absolute;top:30%;">' + posts[i-startFrom][5] + ' | ' + posts[i-startFrom][4].c[0]+ '<br>' + posts[i-startFrom][6] + '<br>'+ posts[i-startFrom][0] + '</p>';
+				elem.innerHTML = '<p style = "border:2px; border-style: solid; border-color: #ffffff;position:absolute;top:30%;">' + posts[i-startFrom][5] + ' | ' + (posts[i-startFrom][4].s*posts[i-startFrom][4].c[0])+ '<br>' + posts[i-startFrom][6] + '<br>'+ posts[i-startFrom][0] + '</p>';
 				
 				$(elem).css('color', '#ffffff'); 
 				$(elem).css('background-color','transparent');
