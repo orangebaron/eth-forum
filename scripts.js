@@ -12,7 +12,7 @@ forumContract.aliases(web3.eth.accounts[0],function(a,b){
 })
 }}, 5000);
 
-	var AllPrevVals = [];
+	var AllPrevVals = {};
 	var displayLimit=7;
 	function drawReplies(posts) {
 		if (posts.length==0) { return; }
@@ -23,7 +23,8 @@ forumContract.aliases(web3.eth.accounts[0],function(a,b){
 			var elem = document.createElement('div');
 			$(elem).css('position','absolute');
 			if (posts[i-startFrom][3]) {
-				elem.innerHTML = '<div class = "imageContainer">' + '<br>' +posts[i-startFrom][5] + ' | ' + (posts[i-startFrom][4].s*posts[i-startFrom][4].c[0])+ '<p style="display: block; padding-left: 33px; padding-right: 33px; width: 50%; left:25%; font-size:1em;">' + posts[i-startFrom][0] + '</p>' + posts[i-startFrom][6]+'</div>';
+				elem.innerHTML = '<div class = "imageContainer">' + '<br>' +posts[i-startFrom][5] + ' | ' + (posts[i-startFrom][4].s*posts[i-startFrom][4].c[0])+ '<p style="display: block; padding-left: 25%; padding-right: 25%; width: 50%; left:25%; text-align: center; font-size:1.1em;">' + posts[i-startFrom][0] + '</p>' + posts[i-startFrom][6]+'</div>';
+
 
 				$(elem).addClass('circle');
 				$(elem).css('color', '#ffffff');
@@ -40,9 +41,9 @@ forumContract.aliases(web3.eth.accounts[0],function(a,b){
 			$(elem).addClass('surrounding');
 			elem.id = posts[i-startFrom][5];
 			$(elem).css('margin','-75px 0 0 -75px');
-			$(elem).css('width','150px');
-			$(elem).css('height','150px');
-			$(elem).css('font-size','9.4pt');
+			$(elem).css('width','200px');
+			$(elem).css('height','200px');
+			$(elem).css('font-size','12.5pt');
 			//console.log(numPosts+startFrom);
 			$(elem).css('top',String(
 				50+(30*Math.sin(6.28318530718*i/(numPosts+startFrom)))
@@ -57,10 +58,10 @@ forumContract.aliases(web3.eth.accounts[0],function(a,b){
 	function moveLeft(x) {
 		x.animate({top:"50%",
 			left: "30%",
-			width: "100px",
-			height: "100px",
+			width: "150px",
+			height: "150px",
 			margin: "-25px 0 0 -25px",
-			fontSize: "6.2pt"
+			fontSize: "9.2pt"
 		});
 	}
 	function moveCenter(x){
@@ -96,14 +97,12 @@ forumContract.aliases(web3.eth.accounts[0],function(a,b){
 		$(".surrounding").remove();
 		$(this).off("click");
 		var variable = true;
-		console.log(AllPrevVals);
-		for (var i = 0; i < AllPrevVals.length; i++){
-			if (AllPrevVals[i][5] == this.id) {
-				drawReplies(AllPrevVals[i]);
-				variable = false
-			}
+		var id = this.id;
+		if (AllPrevVals[id]!=null) {
+			drawReplies(AllPrevVals[id]);leftClick();boxClick();
+		} else {
+			actOnReplyList(this.id,function(a){AllPrevVals[id]=a;drawReplies(a);leftClick();boxClick();});
 		}
-		if (variable) actOnReplyList(parseInt(this.id),function(a){drawReplies(a);leftClick();boxClick();});
 	  });
 	}
 	function leftClick(){
@@ -129,12 +128,21 @@ forumContract.aliases(web3.eth.accounts[0],function(a,b){
 
 		$(this).off("click");
 		$(".surrounding").remove();
-		actOnReplyList(parseInt(this.id),function(a){drawReplies(a);leftClick();boxClick();});
+		var id = this.id;
+		if (AllPrevVals[id]!=null) {
+			drawReplies(AllPrevVals[id]);leftClick();boxClick();
+		} else {
+			actOnReplyList(this.id,function(a){AllPrevVals[id]=a;drawReplies(a);leftClick();boxClick();});
+		}
 	  });
 	}
 
 	actOnReplyList(880654,console.log);
-	actOnReplyList(880654,function(a){AllPrevVals.push(a); drawReplies(a);boxClick();});
+	actOnReplyList(880654,function(a){AllPrevVals["880654"]=a; drawReplies(a);boxClick();});
+
+	setInterval(function(){
+		$.each(AllPrevVals,function(i,v){actOnReplyList(i,function(a){AllPrevVals[i]=a;})});
+	},10000);
 })
 
 dragElement(document.getElementById(("mydiv")));
