@@ -258,7 +258,7 @@ function actOnReplyList(id,func) {
 	getReplyList(id,function(a){getMoreInfo(a,function(a){getAliases(a, func)})}); //first element is the text, second the address of sender, third the parent address, and fourth is whether it's a forum, fifth is ID, sixth is alias most recent at 0
 }
 
-function makePost(id, text, replyingTo, isForum){
+function makePost(id, text, replyingTo, isForum) {
 	forumContract.MakePost(id, text, replyingTo, isForum, {value: 0, gas: 200000}, function(err, result){});
 }
 function upvote(id){

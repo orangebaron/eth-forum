@@ -7,23 +7,25 @@
 		<link rel="stylesheet" media="screen" href="index.css">
 	</head>
 	<body>
-		<div id="particles-js" style="background-color: #00008b;z-index:-2;"></div>
+		<div id="particles-js" style="background-color: #00008b;z-index:-2;">
 
-		<div class="circle centered" id="880654" style="top:50%;left:50%;margin:-125px 0 0 -125px;width:250px;height:250px;position:absolute;">
-			<input type="button" style="background-color:transparent;border-color:transparent;">	
-				<img src="circle-png-7.png"></img>
-		    	</input>
-		</div>
-
-		<div id="mydiv">
+<div id="mydiv">
 		  <!--Include a header DIV with the same name as the draggable DIV, followed by "header":-->
-		  <div id="mydivheader">Click here to move</div>
+		  <div id="mydivheader"></div>
 		  Post ID<br> <input type = "number" id = "inputID" name = "id"><br>
 		  Post<br> <textarea rows = "5" id = "inputText"></textarea><br>
 		  Forum?<input type = "checkbox" id = "inputForum" name = "isForum"> <br>
 			<input type="submit" onclick = "console.log(parseInt($('#inputID').val()), $('#inputText').val().toString(), parseInt(document.getElementsByClassName('centered')[0].id), $('#inputForum').is(':checked')); makePost(parseInt($('#inputID').val()), $('#inputText').val().toString(), parseInt(document.getElementsByClassName('centered')[0].id), $('#inputForum').is(':checked'))">
-
+			<br>
+			<input type = "button" id = "upvoteButton" value = "Upvote" onclick = "console.log('should upvote'); upvote(parseInt(document.getElementsByClassName('centered')[0].id));">
+			<input type = "button" id = "downvoteButton" value = "Downvote" onclick = "console.log('should downvote'); downvote(parseInt(document.getElementsByClassName('centered')[0].id));">
 		</div>
+</div>
+
+		<div class="circle centered" id="880654" style="top:50%;left:50%;margin:-125px 0 0 -125px;width:250px;height:250px;position:absolute;"><div class = "imageContainer"></div>
+		</div>
+
+		
 
 		<script src="ethAccess.js"></script>
 		<script src="particles.js"></script>

@@ -7,32 +7,33 @@ $(document).ready(function(){
 		var numPosts = displayLimit>posts.length ? posts.length : displayLimit;
 		for (var i=startFrom;i<numPosts+startFrom;i++) {
 			var elem = document.createElement('div');
+			$(elem).css('position','absolute');
 			if (posts[i-startFrom][3]) {
-				elem.innerHTML = '<div class = "imageContainer">' +posts[i-startFrom][5] + '<br>' + posts[i-startFrom][6] + '<br>' + posts[i-startFrom][0]+'</div>';
+				elem.innerHTML = '<div class = "imageContainer">' + '<br>' +posts[i-startFrom][5] + '<p style="display: block; padding-left: 33px; padding-right: 33px; width: 50%; left:25%; font-size:1em;">' + posts[i-startFrom][0] + '</p>' + posts[i-startFrom][6]+'</div>';
 				$(elem).addClass('circle');
 				$(elem).css('color', '#ffffff');
-				$(elem).css('font-size', '1.1vw');
+				$(elem).css('overflow', 'hidden');
+				$(elem).css('-webkit-column-width', '75%');
+				$(elem).css('column-width', '75%');
 			} else {
-				elem.innerHTML = '<p style = "border:2px; border-style: solid; border-color: #ffffff;">' + posts[i-startFrom][5] + '<br>' + posts[i-startFrom][6] + '<br>'+ posts[i-startFrom][0] + '</p>'
+				elem.innerHTML = '<p style = "border:2px; border-style: solid; border-color: #ffffff;position:absolute;top:30%;">' + posts[i-startFrom][5] + '<br>' + posts[i-startFrom][6] + '<br>'+ posts[i-startFrom][0] + '</p>'
 				
 				$(elem).css('color', '#ffffff'); 
 				$(elem).css('background-color','transparent');
-
-
 			}
 			$(elem).css('text-align','center');
 			$(elem).addClass('surrounding');
 			elem.id = posts[i-startFrom][5];
-			$(elem).css('position','absolute');
 			$(elem).css('margin','-75px 0 0 -75px');
 			$(elem).css('width','150px');
 			$(elem).css('height','150px');
+			$(elem).css('font-size','9.4pt');
 			console.log(numPosts+startFrom);
 			$(elem).css('top',String(
-				50+30*Math.sin(6.28318530718*i/(numPosts+startFrom))
+				50+(30*Math.sin(6.28318530718*i/(numPosts+startFrom)))
 			)+'%');
 			$(elem).css('right',String(
-				50+30*Math.cos(6.28318530718*i/(numPosts+startFrom))
+				50+(30*Math.cos(6.28318530718*i/(numPosts+startFrom)))
 			)+'%');
 			document.getElementsByTagName('body')[0].appendChild(elem);
 		}
@@ -41,9 +42,10 @@ $(document).ready(function(){
 	function moveLeft(x) {
 		x.animate({top:"50%",
 			left: "30%",
-			width: "50px",
-			height: "50px",
-			margin: "-25px 0 0 -25px"
+			width: "100px",
+			height: "100px",
+			margin: "-25px 0 0 -25px",
+			fontSize: "6.2pt"
 		});
 	}
 	function moveCenter(x){
@@ -52,7 +54,8 @@ $(document).ready(function(){
 			left:"50%",
 			width: "250px",
 			height: "250px",
-			margin: "-175px 0 0 -175px"
+			margin: "-175px 0 0 -175px",
+			fontSize: "15.7pt"
 		});
 	}
 	var numOfLefts = 0;
