@@ -153,5 +153,14 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
   }
+
+  forumContract.aliases(web3.eth.accounts[0],function(a,b){
+  	if (b=='') {
+		var val = prompt('Please choose a username.');
+		if (val != null) {
+			forumContract.SetAlias(val, {value: 0, gas: 200000}, function(err, result){});
+		}
+	}
+  })
 }
 
