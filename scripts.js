@@ -1,4 +1,18 @@
 $(document).ready(function(){
+	const web3 = new Web3(window.web3.currentProvider);
+setTimeout(function(){ console.log(web3.eth.accounts);
+if (web3.eth.accounts == 0) {
+forumContract.aliases(web3.eth.accounts[0],function(a,b){
+	if (b=='') {
+	var val = prompt('Please choose a username.');
+	if (val != null) {
+		forumContract.SetAlias(val, {value: 0, gas: 200000}, function(err, result){});
+	}
+}
+})
+}}, 5000);
+
+	var AllPrevVals = [];
 	var displayLimit=7;
 	function drawReplies(posts) {
 		if (posts.length==0) { return; }
@@ -18,8 +32,8 @@ $(document).ready(function(){
 				$(elem).css('column-width', '75%');
 			} else {
 				elem.innerHTML = '<p style = "border:2px; border-style: solid; border-color: #ffffff;position:absolute;top:30%;">' + posts[i-startFrom][5] + ' | ' + (posts[i-startFrom][4].s*posts[i-startFrom][4].c[0])+ '<br>' + posts[i-startFrom][6] + '<br>'+ posts[i-startFrom][0] + '</p>';
-				
-				$(elem).css('color', '#ffffff'); 
+
+				$(elem).css('color', '#ffffff');
 				$(elem).css('background-color','transparent');
 			}
 			$(elem).css('text-align','center');
@@ -29,7 +43,7 @@ $(document).ready(function(){
 			$(elem).css('width','150px');
 			$(elem).css('height','150px');
 			$(elem).css('font-size','9.4pt');
-			console.log(numPosts+startFrom);
+			//console.log(numPosts+startFrom);
 			$(elem).css('top',String(
 				50+(30*Math.sin(6.28318530718*i/(numPosts+startFrom)))
 			)+'%');
@@ -58,6 +72,7 @@ $(document).ready(function(){
 			margin: "-175px 0 0 -175px",
 			fontSize: "15.7pt"
 		});
+
 	}
 	var numOfLefts = 0;
 	function boxClick(){
@@ -80,7 +95,15 @@ $(document).ready(function(){
 		$(this).removeClass("surrounding").addClass("centered");
 		$(".surrounding").remove();
 		$(this).off("click");
-		actOnReplyList(parseInt(this.id),function(a){drawReplies(a);leftClick();boxClick();});
+		var variable = true;
+		console.log(AllPrevVals);
+		for (var i = 0; i < AllPrevVals.length; i++){
+			if (AllPrevVals[i][5] == this.id) {
+				drawReplies(AllPrevVals[i]);
+				variable = false
+			}
+		}
+		if (variable) actOnReplyList(parseInt(this.id),function(a){drawReplies(a);leftClick();boxClick();});
 	  });
 	}
 	function leftClick(){
@@ -101,8 +124,8 @@ $(document).ready(function(){
 			}
 		}
 		numOfLefts--;
-		
-		
+
+
 
 		$(this).off("click");
 		$(".surrounding").remove();
@@ -111,7 +134,7 @@ $(document).ready(function(){
 	}
 
 	actOnReplyList(880654,console.log);
-	actOnReplyList(880654,function(a){drawReplies(a);boxClick();});
+	actOnReplyList(880654,function(a){AllPrevVals.push(a); drawReplies(a);boxClick();});
 })
 
 dragElement(document.getElementById(("mydiv")));
@@ -154,13 +177,4 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 
-  forumContract.aliases(web3.eth.accounts[0],function(a,b){
-  	if (b=='') {
-		var val = prompt('Please choose a username.');
-		if (val != null) {
-			forumContract.SetAlias(val, {value: 0, gas: 200000}, function(err, result){});
-		}
-	}
-  })
 }
-
